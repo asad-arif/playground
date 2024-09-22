@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Card</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        max-width: 300px;
+        transition: transform 0.3s;
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+      }
+
+      .product-image {
+        font-size: 50px;
+        margin-bottom: 15px;
+      }
+
+      .product-name {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .product-price {
+        font-size: 1.25rem;
+        color: #28a745;
+        margin-bottom: 10px;
+      }
+
+      .product-organic,
+      .product-quantity {
+        font-size: 1rem;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/product?id={%ID%}">
+      <div class="card">
+        <div class="product-image">{%PRODUCT_IMAGE%}</div>
+        <h2 class="product-name">{%PRODUCT_NAME%}</h2>
+        <p class="product-price">{%PRODUCT_PRICE%}</p>
+        <p class="product-organic">{%IS_ORGANIC%}</p>
+        <p class="product-quantity">{%PRODUCT_QUANTITY%}</p>
+      </div>
+    </a>
+  </body>
+</html>
