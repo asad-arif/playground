@@ -23,19 +23,10 @@ const url = require('url');
 //   }
 // });
 
-const overviewTemp = fs.readFileSync(
-  `${__dirname}/template/template-overview.html`,
-  'utf-8'
-);
-const cardTemp = fs.readFileSync(
-  `${__dirname}/template/template-card.html`,
-  'utf-8'
-);
+const overviewTemp = fs.readFileSync(`${__dirname}/template/template-overview.html`, 'utf-8');
+const cardTemp = fs.readFileSync(`${__dirname}/template/template-card.html`, 'utf-8');
 
-const productTemp = fs.readFileSync(
-  `${__dirname}/template/template-product.html`,
-  'utf-8'
-);
+const productTemp = fs.readFileSync(`${__dirname}/template/template-product.html`, 'utf-8');
 
 const products = fs.readFileSync(`${__dirname}/data/products.js`, 'utf-8');
 
@@ -43,10 +34,7 @@ const replaceTemplate = (product, cardTemp) => {
   let output = cardTemp.replace('{%PRODUCT_IMAGE%}', product.image);
   output = output.replace(/{%PRODUCT_NAME%}/g, product.name);
   output = output.replace('{%PRODUCT_PRICE%}', product.price);
-  output = output.replace(
-    '{%IS_ORGANIC%}',
-    product.isOrganic ? 'Organic' : 'Not organic'
-  );
+  output = output.replace('{%IS_ORGANIC%}', product.isOrganic ? 'Organic' : 'Not organic');
   output = output.replace('{%ID%}', product.id);
   output = output.replace('{%PRODUCT_QUANTITY%}', product.quantity);
   output = output.replace('{%PRODUCT_DESCRIPTION%}', product.description);
@@ -64,9 +52,7 @@ const server = http.createServer((req, res) => {
   const { pathname, query } = url.parse(req.url, true);
   if (pathname === '/' || pathname === '/overview') {
     const productsDataObj = JSON.parse(products);
-    const ProductCards = productsDataObj
-      .map((el) => replaceTemplate(el, cardTemp))
-      .join('');
+    const ProductCards = productsDataObj.map((el) => replaceTemplate(el, cardTemp)).join('');
 
     res.writeHead(200, {
       'Content-type': 'text/html',
@@ -74,9 +60,9 @@ const server = http.createServer((req, res) => {
     const result = overviewTemp.replace('%CARD%', ProductCards);
     res.end(result);
   } else if (pathname === '/product') {
-    const productsObj = JSON.parse(products)
+    const productsObj = JSON.parse(products);
     const productData = productsObj[parseInt(query?.id)];
-    console.log(productData)
+    console.log(productData);
     const result = replaceTemplate(productData, productTemp);
     res.writeHead(200, {
       'Content-type': 'text/html',
