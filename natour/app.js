@@ -1,7 +1,9 @@
 const express = require('express');
+const morgan = require('morgan');
 const fs = require('fs');
 const app = express();
 app.use(express.json());
+app.use(morgan('dev'));
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours.json`));
 
